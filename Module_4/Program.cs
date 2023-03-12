@@ -11,34 +11,47 @@ namespace Module_4
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Напишите свой любимый цвет на английском с маленькой буквы");
+            var AnketaKorteg = anketa();
+            Console.WriteLine("Ваше имя: {0}", AnketaKorteg.name);
+            Console.WriteLine("Ваша фамилия: {0}", AnketaKorteg.sername);
+            Console.WriteLine("Ваш возраст: {0}", AnketaKorteg.age);
+            Console.WriteLine("");
+            Console.WriteLine("");
 
-            var color = Console.ReadLine();
 
-            if (color == "red")
+            Console.ReadKey();
+        }
+
+        static (string name, string sername, int age, bool pet, int petcount) anketa()
+        {
+            (string name, string sername, int age, bool pet, int petcount) anketa;
+            anketa.petcount = 0;
+            Console.WriteLine("Введите своe имя: ");
+            anketa.name = Console.ReadLine();
+            Console.WriteLine("Введите свою фамилию: ");
+            anketa.sername = Console.ReadLine();
+            Console.WriteLine("Введите свой возраст цифрами: ");
+            anketa.age = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Есть ли у вас животные? Да или Нет");
+
+            var resultPet = Console.ReadLine();
+
+            if (resultPet == "Да")
             {
-                Console.BackgroundColor = ConsoleColor.Red;
-                Console.ForegroundColor = ConsoleColor.Black;
-
-                Console.WriteLine("Your color is red!");
-            }
-
-            else if (color == "green")
-            {
-                Console.BackgroundColor = ConsoleColor.Green;
-                Console.ForegroundColor = ConsoleColor.Black;
-
-                Console.WriteLine("Your color is green!");
-                
+                anketa.pet = true;
             }
             else
             {
-                Console.BackgroundColor = ConsoleColor.Cyan;
-                Console.ForegroundColor = ConsoleColor.Black;
-
-                Console.WriteLine("Your color is cyan!");
+                anketa.pet = false;
             }
-            Console.ReadKey();
+
+            if (anketa.pet == true)
+            {
+                Console.WriteLine("Введите количество животных: ");
+                anketa.petcount = Convert.ToInt32(Console.ReadLine());
+            }
+
+            return (anketa.name, anketa.sername, anketa.age, anketa.pet, anketa.petcount);
         }
         }
     }
