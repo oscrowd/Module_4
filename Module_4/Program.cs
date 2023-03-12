@@ -22,10 +22,11 @@ namespace Module_4
             Console.ReadKey();
         }
 
-        static (string name, string sername, int age, bool pet, int petcount) anketa()
+        static (string name, string sername, int age, bool pet, int petcount, string[] petnames) anketa()
         {
-            (string name, string sername, int age, bool pet, int petcount) anketa;
+            (string name, string sername, int age, bool pet, int petcount, string[] petnames) anketa;
             anketa.petcount = 0;
+            anketa.petnames[0] = "fgfg";
             Console.WriteLine("Введите своe имя: ");
             anketa.name = Console.ReadLine();
             Console.WriteLine("Введите свою фамилию: ");
@@ -49,9 +50,23 @@ namespace Module_4
             {
                 Console.WriteLine("Введите количество животных: ");
                 anketa.petcount = Convert.ToInt32(Console.ReadLine());
+                anketa.petnames = petNames(anketa.petcount);
             }
+           
+                
+            
 
-            return (anketa.name, anketa.sername, anketa.age, anketa.pet, anketa.petcount);
+            return (anketa.name, anketa.sername, anketa.age, anketa.pet, anketa.petcount, anketa.petnames);
+        }
+        static string[] petNames(int pet_count)
+        {
+            string[] names = new string[pet_count];
+            for (int i=0; i < pet_count; i++) 
+            {
+                Console.WriteLine("Введите кличку " + (i+1) + " животного:");
+                names[i] = Console.ReadLine();
+            }
+            return names;   
         }
         }
     }
