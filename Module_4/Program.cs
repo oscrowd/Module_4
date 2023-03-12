@@ -11,34 +11,30 @@ namespace Module_4
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Напишите свой любимый цвет на английском с маленькой буквы");
+            Console.WriteLine("Напишите что-то");
+            var str = Console.ReadLine();
 
-            var color = Console.ReadLine();
+            Console.WriteLine("Укажите глубину эха");
+            var deep = int.Parse(Console.ReadLine());
 
-            if (color == "red")
-            {
-                Console.BackgroundColor = ConsoleColor.Red;
-                Console.ForegroundColor = ConsoleColor.Black;
+            Echo(str, deep);
 
-                Console.WriteLine("Your color is red!");
-            }
-
-            else if (color == "green")
-            {
-                Console.BackgroundColor = ConsoleColor.Green;
-                Console.ForegroundColor = ConsoleColor.Black;
-
-                Console.WriteLine("Your color is green!");
-                
-            }
-            else
-            {
-                Console.BackgroundColor = ConsoleColor.Cyan;
-                Console.ForegroundColor = ConsoleColor.Black;
-
-                Console.WriteLine("Your color is cyan!");
-            }
             Console.ReadKey();
+        }
+
+        static void Echo(string saidworld, int deep)
+        {
+            var modif = saidworld;
+            if (modif.Length > 2)
+            {
+                modif = modif.Remove(0, 2);
+            }
+            Console.WriteLine("..." + modif);
+
+            if (deep > 1)
+            {
+                Echo(phrase, deep - 1);
+            }
         }
         }
     }
