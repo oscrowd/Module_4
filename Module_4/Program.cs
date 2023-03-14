@@ -27,18 +27,27 @@ namespace Module_4
             {
                 Console.WriteLine("Домашних животных нет");
             }
+            Console.WriteLine("Любимые цвета:");
+            for (int i = 0; i <= AnketaKorteg.colorcount - 1; i++)
+            {
+                Console.WriteLine((i + 1) + " цвет: " + AnketaKorteg.colors[i]);
+            }
             
+
             Console.ReadLine();
         }
 
-        static (string name, string sername, int age, bool pet, int petcount, string[] petnames) anketa()
+        static (string name, string sername, int age, bool pet, int petcount, string[] petnames, int colorcount, string[] colors) anketa()
         {
-            (string name, string sername, int age, bool pet, int petcount, string[] petnames) anketa;
+            (string name, string sername, int age, bool pet, int petcount, string[] petnames, int colorcount, string[] colors) anketa;
             anketa.petcount = 0;
-            string[] petnames = new[] { "-"};
+            anketa.colorcount = 0;
             anketa.age = 0;
+            string[] petnames = new[] { "-"};
+            string[] colors = new[] { "-" };
             bool iscorrectage = false;
             bool iscorrectpetcount = false;
+            bool iscorrectcolorcount = false;
             //anketa.petnames[0] = "fgfg";
             Console.WriteLine("Введите своe имя: ");
             anketa.name = Console.ReadLine();
@@ -74,15 +83,18 @@ namespace Module_4
                 }
                 
             }
-            else
+            while (iscorrectcolorcount == false | anketa.colorcount < 1 | anketa.colorcount > 3)
             {
-                petnames[0] = "-";
+                Console.WriteLine("Введите количество животных (от 1 до 3): ");
+                iscorrectcolorcount = int.TryParse(Console.ReadLine(), out anketa.colorcount);
+                colors = Colors(anketa.colorcount);
             }
-           
-                
-            
 
-            return (anketa.name, anketa.sername, anketa.age, anketa.pet, anketa.petcount, petnames);
+
+
+
+
+            return (anketa.name, anketa.sername, anketa.age, anketa.pet, anketa.petcount, petnames, anketa.colorcount, colors);
         }
         static string[] petNames(int pet_count)
         {
@@ -93,6 +105,16 @@ namespace Module_4
                 names[i] = Console.ReadLine();
             }
             return names;   
+        }
+        static string[] Colors(int color_count)
+        {
+            string[] names = new string[color_count];
+            for (int i = 0; i < color_count; i++)
+            {
+                Console.WriteLine("Введите " + (i + 1) + " цвет:");
+                names[i] = Console.ReadLine();
+            }
+            return names;
         }
         static void AnketaResult(string[] AnketaKortegL)
         {
