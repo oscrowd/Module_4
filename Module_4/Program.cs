@@ -26,13 +26,21 @@ namespace Module_4
         {
             (string name, string sername, int age, bool pet, int petcount, string[] petnames) anketa;
             anketa.petcount = 0;
-            anketa.petnames[0] = "fgfg";
+            string[] petnames = new[] { "-"};
+            anketa.age = 0;
+            bool iscorrectage = false;
+            //anketa.petnames[0] = "fgfg";
             Console.WriteLine("Введите своe имя: ");
             anketa.name = Console.ReadLine();
             Console.WriteLine("Введите свою фамилию: ");
             anketa.sername = Console.ReadLine();
-            Console.WriteLine("Введите свой возраст цифрами: ");
-            anketa.age = Convert.ToInt32(Console.ReadLine());
+            while (iscorrectage == false | anketa.age == 0 | anketa.age >255)
+            {
+                Console.WriteLine("Введите свой возраст цифрами: ");
+                iscorrectage = int.TryParse(Console.ReadLine(), out anketa.age);
+                //anketa.age = Convert.ToInt32(Console.ReadLine());
+            }
+
             Console.WriteLine("Есть ли у вас животные? Да или Нет");
 
             var resultPet = Console.ReadLine();
@@ -50,13 +58,17 @@ namespace Module_4
             {
                 Console.WriteLine("Введите количество животных: ");
                 anketa.petcount = Convert.ToInt32(Console.ReadLine());
-                anketa.petnames = petNames(anketa.petcount);
+                petnames = petNames(anketa.petcount);
+            }
+            else
+            {
+                petnames[0] = "-";
             }
            
                 
             
 
-            return (anketa.name, anketa.sername, anketa.age, anketa.pet, anketa.petcount, anketa.petnames);
+            return (anketa.name, anketa.sername, anketa.age, anketa.pet, anketa.petcount, petnames);
         }
         static string[] petNames(int pet_count)
         {
