@@ -12,6 +12,7 @@ namespace Module_4
         {
 
             var AnketaKorteg = anketa();
+            Console.WriteLine("\n\n\tРезультаты анкетирования:");
             Console.WriteLine("Ваше имя: {0}", AnketaKorteg.name);
             Console.WriteLine("Ваша фамилия: {0}", AnketaKorteg.sername);
             Console.WriteLine("Ваш возраст: {0}", AnketaKorteg.age);
@@ -43,6 +44,7 @@ namespace Module_4
             anketa.petcount = 0;
             anketa.colorcount = 0;
             anketa.age = 0;
+            string strtemp = "";
             string[] petnames = new[] { "-"};
             string[] colors = new[] { "-" };
             bool iscorrectage = false;
@@ -53,12 +55,13 @@ namespace Module_4
             anketa.name = Console.ReadLine();
             Console.WriteLine("Введите свою фамилию: ");
             anketa.sername = Console.ReadLine();
-            while (iscorrectage == false | anketa.age < 1 | anketa.age > 255)
+            while (iscorrectage == false)
             {
-                Console.WriteLine("Введите свой возраст цифрами: ");
-                iscorrectage = int.TryParse(Console.ReadLine(), out anketa.age);
-                //anketa.age = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Введите свой возраст цифрами (от 1 до 150): ");
+                strtemp = Console.ReadLine();
+                iscorrectage = CheckNumber(strtemp, 5);
             }
+            anketa.age = Convert.ToInt32(strtemp);
 
             Console.WriteLine("Есть ли у вас животные? Да или Нет");
 
@@ -75,20 +78,28 @@ namespace Module_4
 
             if (anketa.pet == true)
             {
-                while (iscorrectpetcount == false | anketa.petcount < 1 | anketa.petcount > 5)
+                strtemp="";
+                while (iscorrectpetcount == false)
                 {
                     Console.WriteLine("Введите количество животных (от 1 до 5): ");
-                    iscorrectpetcount = int.TryParse(Console.ReadLine(), out anketa.petcount);
-                    petnames = petNames(anketa.petcount);
+                    strtemp=Console.ReadLine();
+                    iscorrectpetcount = CheckNumber(strtemp, 5);
                 }
-                
+                anketa.petcount = Convert.ToInt32(strtemp);
+                petnames = petNames(anketa.petcount);
+
+
             }
-            while (iscorrectcolorcount == false | anketa.colorcount < 1 | anketa.colorcount > 3)
+
+            strtemp = "";
+            while (iscorrectcolorcount == false)
             {
-                Console.WriteLine("Введите количество животных (от 1 до 3): ");
-                iscorrectcolorcount = int.TryParse(Console.ReadLine(), out anketa.colorcount);
-                colors = Colors(anketa.colorcount);
+                Console.WriteLine("Введите количество цветов (от 1 до 3): ");
+                strtemp = Console.ReadLine();
+                iscorrectcolorcount = CheckNumber(strtemp, 3);
             }
+            anketa.colorcount = Convert.ToInt32(strtemp);
+            colors = Colors(anketa.colorcount);
 
 
 
@@ -116,14 +127,45 @@ namespace Module_4
             }
             return names;
         }
-        static void AnketaResult(string[] AnketaKortegL)
+        static bool CheckNumber(string number, int maxnumber)
         {
-            //Console.WriteLine("Ваше имя: {0}", AnketaKortegL.name);
-            //Console.WriteLine("Ваша фамилия: {0}", AnketaKortegL.sername);
-            //Console.WriteLine("Ваш возраст: {0}", AnketaKortegL.age);
-            //Console.WriteLine("");
-            //Console.WriteLine("");
-
+            int tempnumber;
+            bool correctint = false;
+            bool correctnumer =false;
+            correctint = int.TryParse(number, out tempnumber);
+            if (tempnumber < 1 | tempnumber > maxnumber | correctint == false)
+            {
+                correctnumer = false;
+            }
+            else
+            {
+                correctnumer = true;
+            }
+            return correctnumer;
+        }
+        static void AnketaResult((string name, string sername, int age, bool pet, int petcount, string[] petnames, int colorcount, string[] colors) AnketaKortegL)
+        {
+            Console.WriteLine("\n\n\tРезультаты анкетирования:");
+            Console.WriteLine("Ваше имя: {0}", AnketaKortegL.name);
+            Console.WriteLine("Ваша фамилия: {0}", AnketaKortegL.sername);
+            Console.WriteLine("Ваш возраст: {0}", AnketaKortegL.age);
+            if (AnketaKortegL.pet == true)
+            {
+                Console.WriteLine("Домашние животные:");
+                for (int i = 0; i <= AnketaKortegL.petcount - 1; i++)
+                {
+                    Console.WriteLine((i + 1) + " животное: " + AnketaKortegL.petnames[i]);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Домашних животных нет");
+            }
+            Console.WriteLine("Любимые цвета:");
+            for (int i = 0; i <= AnketaKortegL.colorcount - 1; i++)
+            {
+                Console.WriteLine((i + 1) + " цвет: " + AnketaKortegL.colors[i]);
+            }
 
             Console.ReadKey();
         }
