@@ -12,30 +12,7 @@ namespace Module_4
         {
 
             var AnketaKorteg = anketa();
-            Console.WriteLine("\n\n\tРезультаты анкетирования:");
-            Console.WriteLine("Ваше имя: {0}", AnketaKorteg.name);
-            Console.WriteLine("Ваша фамилия: {0}", AnketaKorteg.sername);
-            Console.WriteLine("Ваш возраст: {0}", AnketaKorteg.age);
-            if (AnketaKorteg.pet == true)
-            {
-                Console.WriteLine("Домашние животные:");
-                for (int i = 0; i <= AnketaKorteg.petcount - 1; i++)
-                {
-                    Console.WriteLine((i + 1) + " животное: " + AnketaKorteg.petnames[i]);
-                }
-            }
-            else
-            {
-                Console.WriteLine("Домашних животных нет");
-            }
-            Console.WriteLine("Любимые цвета:");
-            for (int i = 0; i <= AnketaKorteg.colorcount - 1; i++)
-            {
-                Console.WriteLine((i + 1) + " цвет: " + AnketaKorteg.colors[i]);
-            }
-            
-
-            Console.ReadLine();
+            AnketaResult(AnketaKorteg);
         }
 
         static (string name, string sername, int age, bool pet, int petcount, string[] petnames, int colorcount, string[] colors) anketa()
@@ -59,7 +36,7 @@ namespace Module_4
             {
                 Console.WriteLine("Введите свой возраст цифрами (от 1 до 150): ");
                 strtemp = Console.ReadLine();
-                iscorrectage = CheckNumber(strtemp, 5);
+                iscorrectage = CheckNumber(strtemp, 150);
             }
             anketa.age = Convert.ToInt32(strtemp);
 
